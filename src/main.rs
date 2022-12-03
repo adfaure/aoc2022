@@ -1,13 +1,21 @@
+use std::env;
 use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
-use std::env;
+
+mod day3;
+mod helpers;
+use day3::day3;
+
+use crate::helpers::read_lines;
 
 fn main() {
-  let args: Vec<String> = env::args().collect();
-  if args[1] == "2" {
-      day2()
-  }
+    let args: Vec<String> = env::args().collect();
+    if args[1] == "2" {
+        day2();
+    } else if args[1] == "3" {
+        day3();
+    }
 }
 
 fn day2() {
@@ -22,25 +30,25 @@ fn day2() {
                 let col1 = AX[0];
                 let mut col2 = AX[1];
 
-                match(col1, col2) {
+                match (col1, col2) {
                     (_, "X") => {
                         sumline += 1;
                         sump2 += 0;
                         col2 = "A";
                         match col1 {
-                           "A" => {
-                             // faire C
-                             sump2 += 3;
-                           }
-                           "B" => {
-                             // faire A
-                             sump2 += 1;
-                           }
-                           "C" => {
-                             // faire B
-                             sump2 += 2;
-                           }
-                           _ => {}
+                            "A" => {
+                                // faire C
+                                sump2 += 3;
+                            }
+                            "B" => {
+                                // faire A
+                                sump2 += 1;
+                            }
+                            "C" => {
+                                // faire B
+                                sump2 += 2;
+                            }
+                            _ => {}
                         }
                     }
                     (_, "Y") => {
@@ -48,19 +56,19 @@ fn day2() {
                         sumline += 2;
                         col2 = "B";
                         match col1 {
-                           "A" => {
-                             // faire C
-                             sump2 += 1;
-                           }
-                           "B" => {
-                             // faire A
-                             sump2 += 2;
-                           }
-                           "C" => {
-                             // faire B
-                             sump2 += 3;
-                           }
-                           _ => {}
+                            "A" => {
+                                // faire C
+                                sump2 += 1;
+                            }
+                            "B" => {
+                                // faire A
+                                sump2 += 2;
+                            }
+                            "C" => {
+                                // faire B
+                                sump2 += 3;
+                            }
+                            _ => {}
                         }
                     }
                     (_, "Z") => {
@@ -68,19 +76,19 @@ fn day2() {
                         sumline += 3;
                         col2 = "C";
                         match col1 {
-                           "A" => {
-                             // faire C
-                             sump2 += 2;
-                           }
-                           "B" => {
-                             // faire A
-                             sump2 += 3;
-                           }
-                           "C" => {
-                             // faire B
-                             sump2 += 1;
-                           }
-                           _ => {}
+                            "A" => {
+                                // faire C
+                                sump2 += 2;
+                            }
+                            "B" => {
+                                // faire A
+                                sump2 += 3;
+                            }
+                            "C" => {
+                                // faire B
+                                sump2 += 1;
+                            }
+                            _ => {}
                         }
                     }
                     _ => {}
@@ -89,11 +97,12 @@ fn day2() {
                 println!("battle: {} {}", col1, col2);
                 if col1 == col2 {
                     sumline += 3;
-                }
-                else if (col1 == "A" && col2 == "C") || (col1 == "B" && col2 == "A") || (col1 == "C" && col2 == "B") {
+                } else if (col1 == "A" && col2 == "C")
+                    || (col1 == "B" && col2 == "A")
+                    || (col1 == "C" && col2 == "B")
+                {
                     sumline += 0;
-                }
-                else {
+                } else {
                     sumline += 6;
                 }
                 println!("final score: {:?} de la ligne", sumline);
@@ -133,13 +142,5 @@ fn day1() {
         println!("result: {:?}", sums);
         let sum3 = sums.into_iter().take(3).sum::<i32>();
         println!("result: {}", sum3);
-  }
-}
-
-// The output is wrapped in a Result to allow matching on errors
-// Returns an Iterator to the Reader of the lines of the file.
-fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-where P: AsRef<Path>, {
-    let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
+    }
 }
