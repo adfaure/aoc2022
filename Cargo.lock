@@ -16,8 +16,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "procset"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a8f28cf026f1df12d9564385a1450b079a7894d2d4c8a2ec1d1c36b72ea06263"
+
+[[package]]
 name = "rust"
 version = "0.1.0"
 dependencies = [
  "itertools",
+ "procset",
 ]

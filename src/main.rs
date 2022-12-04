@@ -1,20 +1,24 @@
 use std::env;
-use std::fs::File;
-use std::io::{self, BufRead};
-use std::path::Path;
+extern crate interval_set;
 
 mod day3;
+mod day4;
 mod helpers;
 use day3::day3;
+use day4::day4;
 
 use crate::helpers::read_lines;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    if args[1] == "2" {
+    if args[1] == "1" {
+        day1();
+    } else if args[1] == "2" {
         day2();
     } else if args[1] == "3" {
         day3();
+    } else if args[1] == "4" {
+        day4();
     }
 }
 
@@ -24,11 +28,11 @@ fn day2() {
         let mut sump2 = 0;
         for line in lines {
             if let Ok(content) = line {
-                let AX = content.split(" ").collect::<Vec<&str>>();
+                let ax = content.split(" ").collect::<Vec<&str>>();
 
                 let mut sumline = 0;
-                let col1 = AX[0];
-                let mut col2 = AX[1];
+                let col1 = ax[0];
+                let mut col2 = ax[1];
 
                 match (col1, col2) {
                     (_, "X") => {

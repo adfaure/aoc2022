@@ -1,5 +1,4 @@
 use crate::helpers::read_lines;
-use itertools::izip;
 use itertools::Itertools;
 use std::collections::HashSet;
 use std::iter::FromIterator;
@@ -18,7 +17,7 @@ fn scan_bag(rucsaks: &str) -> i32 {
     left.intersection(&right)
         .map(|e| {
             let score = match e {
-                'a'...'z' => 1 + (*e as i32) - ('a' as i32),
+                'a'..='z' => 1 + (*e as i32) - ('a' as i32),
                 _ => 27 + (*e as i32) - ('A' as i32),
             };
             score
@@ -43,9 +42,9 @@ pub fn day3() {
         let v: i32= lines
             .enumerate()
             .map(|(idx, line)| (idx / 3, line.unwrap()))
-            .into_group_map_by(|(idx, line)| *idx)
+            .into_group_map_by(|(idx, _line)| *idx)
             .into_iter()
-            .map(|(key, v)| {
+            .map(|(_key, v)| {
                 v.iter()
                     .map(|e| {
                         let r: HashSet<char> = HashSet::from_iter(e.1.chars());
@@ -57,7 +56,7 @@ pub fn day3() {
                     .map(|badge| {
                         // println!("badge: {:?}", badge);
                         match badge {
-                            'a'...'z' => 1 + (*badge as i32) - ('a' as i32),
+                            'a'..='z' => 1 + (*badge as i32) - ('a' as i32),
                             _ => 27 + (*badge as i32) - ('A' as i32),
                         }
                     })
