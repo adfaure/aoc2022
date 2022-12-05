@@ -39,7 +39,7 @@ pub fn day3() {
     }
 
     if let Ok(lines) = read_lines("./inputs/input-d3.txt") {
-        let v: i32= lines
+        let v: i32 = lines
             .enumerate()
             .map(|(idx, line)| (idx / 3, line.unwrap()))
             .into_group_map_by(|(idx, _line)| *idx)
@@ -62,7 +62,8 @@ pub fn day3() {
                     })
                     .next()
                     .unwrap()
-            }).sum();
+            })
+            .sum();
         println!("part2: {}", v);
     }
 }

@@ -8,4 +8,7 @@ edition = "2018"
 
 [dependencies]
 itertools = "0.10.5"
+# day4
 procset = "0.1.2"
+# day5
+regex = "1.7.0"
