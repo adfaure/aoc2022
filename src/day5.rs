@@ -15,7 +15,13 @@ pub fn day5() {
             .fold(stacks, |mut stacks, content| {
                 if content == "" {
                     parse_stacks = false;
-                    return stacks.into_iter().map(|mut s| { s.reverse(); s}).collect();
+                    return stacks
+                        .into_iter()
+                        .map(|mut s| {
+                            s.reverse();
+                            s
+                        })
+                        .collect();
                 }
 
                 if parse_stacks {
@@ -31,7 +37,6 @@ pub fn day5() {
                         if item != ' ' && !('1'..='9').contains(&item) {
                             stacks[i - 1].push(item);
                         }
-
                     }
                 } else {
                     // actions
@@ -46,10 +51,12 @@ pub fn day5() {
                         let item = stacks[action[1] - 1].pop();
                         stacks[action[2] - 1].push(item.unwrap());
                     }
-
                 }
                 stacks
-            }).into_iter().map(|mut stack| stack.pop().unwrap()).collect::<String>();
+            })
+            .into_iter()
+            .map(|mut stack| stack.pop().unwrap())
+            .collect::<String>();
         println!("result: {}", result);
     }
 
@@ -62,7 +69,13 @@ pub fn day5() {
             .fold(stacks, |mut stacks, content| {
                 if content == "" {
                     parse_stacks = false;
-                    return stacks.into_iter().map(|mut s| { s.reverse(); s}).collect();
+                    return stacks
+                        .into_iter()
+                        .map(|mut s| {
+                            s.reverse();
+                            s
+                        })
+                        .collect();
                 }
 
                 if parse_stacks {
@@ -78,7 +91,6 @@ pub fn day5() {
                         if item != ' ' && !('1'..='9').contains(&item) {
                             stacks[i - 1].push(item);
                         }
-
                     }
                 } else {
                     // actions
@@ -90,14 +102,17 @@ pub fn day5() {
                         .collect();
 
                     let mut out_stack = stacks[action[1] - 1].clone();
-                    let (s, items) = out_stack.split_at_mut(stacks[action[1] - 1].len() - action[0]);
+                    let (s, items) =
+                        out_stack.split_at_mut(stacks[action[1] - 1].len() - action[0]);
 
                     stacks[action[2] - 1].append(&mut items.to_vec());
                     stacks[action[1] - 1] = s.to_vec();
-
                 }
                 stacks
-            }).into_iter().map(|mut stack| stack.pop().unwrap()).collect::<String>();
+            })
+            .into_iter()
+            .map(|mut stack| stack.pop().unwrap())
+            .collect::<String>();
         println!("result part2: {}", result);
     }
 }
