@@ -6,6 +6,7 @@ mod day4;
 mod day5;
 mod day6;
 mod day7;
+mod day8;
 
 mod helpers;
 use day3::day3;
@@ -13,6 +14,7 @@ use day4::day4;
 use day5::day5;
 use day6::day6;
 use day7::day7;
+use day8::day8;
 
 use crate::helpers::read_lines;
 
@@ -32,6 +34,8 @@ fn main() {
         day6();
     } else if args[1] == "7" {
         day7();
+    } else if args[1] == "8" {
+        day8();
     }
 }
 
