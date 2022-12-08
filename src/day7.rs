@@ -11,24 +11,20 @@ pub fn day7() {
             if let Ok(line) = line_res {
                 let instructions = line.split(" ").collect::<Vec<&str>>();
                 match instructions[0] {
-                    "$" => {
-                        match instructions[1] {
-                            "cd" => {
-                                if instructions[2] != ".." {
-                                    current_dir.push(String::from(instructions[2]));
-                                    let path = current_dir.join("/");
-                                    sizes.insert(String::from(path), 0);
-                                } else {
-                                    current_dir.pop();
-                                }
-                            },
-                            "ls" => {
-                            },
-                            _ => {}
+                    "$" => match instructions[1] {
+                        "cd" => {
+                            if instructions[2] != ".." {
+                                current_dir.push(String::from(instructions[2]));
+                                let path = current_dir.join("/");
+                                sizes.insert(String::from(path), 0);
+                            } else {
+                                current_dir.pop();
+                            }
                         }
-                    }
-                    "dir" => {
-                    }
+                        "ls" => {}
+                        _ => {}
+                    },
+                    "dir" => {}
                     _ => {
                         let size: usize = instructions[0].parse::<usize>().unwrap();
                         let mut name = String::from("");
@@ -41,9 +37,14 @@ pub fn day7() {
                 }
             }
         }
-        println!("{:?}", sizes.iter()
-                 .filter(|(_, v)| **v <= (100000 as usize))
-                 .map(|(_, v)| v).sum::<usize>());
+        println!(
+            "{:?}",
+            sizes
+                .iter()
+                .filter(|(_, v)| **v <= (100000 as usize))
+                .map(|(_, v)| v)
+                .sum::<usize>()
+        );
 
         let total_space = 70000000;
         let total_used_space = sizes.get("/").unwrap();
@@ -53,16 +54,22 @@ pub fn day7() {
         let need_to_free = needed - unused;
         println!("need to free {}", need_to_free);
 
-        println!("total: {}, used: {}, needed: {}", total_space, total_used_space, needed);
-        println!("test: {:?}", sizes.into_iter()
-                 .filter(|(_, v)| *v >= (need_to_free as usize))
-                 .fold(total_space, |acc, (_, v)| {
-                    if acc > v  {
+        println!(
+            "total: {}, used: {}, needed: {}",
+            total_space, total_used_space, needed
+        );
+        println!(
+            "test: {:?}",
+            sizes
+                .into_iter()
+                .filter(|(_, v)| *v >= (need_to_free as usize))
+                .fold(total_space, |acc, (_, v)| {
+                    if acc > v {
                         v
                     } else {
                         acc
                     }
-                 }));
-
+                })
+        );
     }
 }
