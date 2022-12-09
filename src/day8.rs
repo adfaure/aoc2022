@@ -28,7 +28,7 @@ pub fn day8() {
             for j in 0..forest_size_x {
                 // left -> right
                 if forest[i][j] > max_l2r {
-                    trees.insert((i as i32 , j as i32));
+                    trees.insert((i as i32, j as i32));
                     max_l2r = forest[i][j];
                 }
                 // right -> left
@@ -36,7 +36,6 @@ pub fn day8() {
                     trees.insert((i as i32, (forest_size_x - j) as i32 - 1));
                     max_r2l = forest[i][forest_size_x - j - 1];
                 }
-
             }
         }
 
@@ -48,7 +47,7 @@ pub fn day8() {
             for j in 0..forest_size_y {
                 // left -> right
                 if forest[j][i] > max_t2b {
-                    trees.insert((j as i32 , i as i32));
+                    trees.insert((j as i32, i as i32));
                     max_t2b = forest[j][i];
                 }
                 // right -> left
@@ -61,13 +60,13 @@ pub fn day8() {
 
         let mut scores = vec![];
         for tree in trees {
-            let (x, y) : (usize, usize) = (tree.0 as usize, tree.1 as usize);
+            let (x, y): (usize, usize) = (tree.0 as usize, tree.1 as usize);
             let h = forest[x][y] as i32;
 
-            let mut visibilities:Vec<i32>  = vec![];
+            let mut visibilities: Vec<i32> = vec![];
 
             let mut v = 0;
-            for i in (x+1)..forest_size_x {
+            for i in (x + 1)..forest_size_x {
                 v += 1;
                 if h > forest[i][y] {
                 } else {
@@ -88,7 +87,7 @@ pub fn day8() {
             visibilities.push(v);
 
             v = 0;
-            for i in (y+1)..forest_size_y {
+            for i in (y + 1)..forest_size_y {
                 v += 1;
                 if h > forest[x][i] {
                 } else {

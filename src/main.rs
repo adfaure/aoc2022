@@ -41,7 +41,6 @@ fn main() {
     } else if args[1] == "9" {
         day9();
     }
-
 }
 
 fn day2() {
