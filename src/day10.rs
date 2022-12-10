@@ -5,7 +5,7 @@ use std::iter::FromIterator;
 pub fn day10() {
     if let Ok(lines) = read_lines("./inputs/input-d10.txt") {
         let mut regs: Vec<i32> = vec![];
-        regs.push(1);
+        let mut last_val = 1 as i32;
 
         for line_res in lines {
             if let Ok(line) = line_res {
@@ -13,13 +13,14 @@ pub fn day10() {
 
                 match instr[0] {
                     "noop" => {
-                        regs.push(regs[regs.len() - 1]);
+                        regs.push(last_val);
                     }
                     "addx" => {
                         let val = instr[1].parse::<i32>().unwrap();
+                        regs.push(last_val);
+                        regs.push(last_val);
 
-                        regs.push(regs[regs.len() - 1]);
-                        regs.push(regs[regs.len() - 1] + val);
+                        last_val = last_val + val;
                     }
                     _ => {}
                 }
@@ -27,7 +28,7 @@ pub fn day10() {
         }
 
         for (i, v) in regs.iter().enumerate() {
-            println!("{}:{}", i, v);
+            // println!("{}:{}", i, v);
         }
 
         let wanted_cycles: HashSet<i32> = HashSet::from_iter(vec![20, 60, 100, 140, 180, 220]);
@@ -35,8 +36,9 @@ pub fn day10() {
             "{:?}",
             regs.iter()
                 .enumerate()
+                .map(|(c, v)| (c + 1, v))
+                // .inspect(|c| println!("{:?}", c))
                 .filter(|c| wanted_cycles.contains(&(c.0 as i32)))
-                .inspect(|v| println!("{:?}", v))
                 .map(|(c, r)| c as i32 * r)
                 .sum::<i32>()
         );
@@ -44,18 +46,20 @@ pub fn day10() {
         let screen: String = regs
             .iter()
             .enumerate()
+            .map(|(c, v)| (c + 1, v))
+            // .inspect(|c| println!("{:?}", c))
             .map(|(c, p)| {
-                let shift: i32 = c as i32 + 1;
-                println!("{:?}:{:?}", shift, p);
-                if (p..=&(p + 2)).contains(&&(shift % 40)) {
-                    return (shift, "#");
+                let shift: i32 = c as i32;
+                println!("pos:{}  mod:{:?}, reg:{:?} -- sprite{:?}", shift, (shift - 1) % 40, p, (p..=&(p + 2)));
+
+                if (p..=&(p + 2)).contains(&&(1 + (shift -1) % 40)) {
+                    return (c, "#");
                 } else {
-                    return (shift, ".");
+                    return (c, ".");
                 }
             })
-
             .fold(String::new(), |acc, (c, v)| {
-                println!("rec: {}", c);
+                // println!("rec: {}", c);
                 if c % 40 == 0 {
                     return format!("{}{}\n", acc, v);
                 } else {
