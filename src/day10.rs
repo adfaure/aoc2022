@@ -46,16 +46,13 @@ pub fn day10() {
         let screen: String = regs
             .iter()
             .enumerate()
-            .map(|(c, v)| (c + 1, v))
-            // .inspect(|c| println!("{:?}", c))
+            .map(|(c, v)| (c, v))
             .map(|(c, p)| {
-                let shift: i32 = c as i32;
-                println!("pos:{}  mod:{:?}, reg:{:?} -- sprite{:?}", shift, (shift - 1) % 40, p, (p..=&(p + 2)));
-
-                if (p..=&(p + 2)).contains(&&(1 + (shift -1) % 40)) {
-                    return (c, "#");
+                if (p..=&(p + 2)).contains(&&(1 + (c as i32 % 40))) {
+                    // return c + 1 because screen position are idexed starting by 1
+                    return (c + 1, "#");
                 } else {
-                    return (c, ".");
+                    return (c + 1, ".");
                 }
             })
             .fold(String::new(), |acc, (c, v)| {
