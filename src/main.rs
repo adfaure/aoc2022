@@ -1,6 +1,7 @@
 use std::env;
 extern crate interval_set;
 
+mod day10;
 mod day3;
 mod day4;
 mod day5;
@@ -10,6 +11,7 @@ mod day8;
 mod day9;
 
 mod helpers;
+use day10::day10;
 use day3::day3;
 use day4::day4;
 use day5::day5;
@@ -40,6 +42,8 @@ fn main() {
         day8();
     } else if args[1] == "9" {
         day9();
+    } else if args[1] == "10" {
+        day10();
     }
 }
 

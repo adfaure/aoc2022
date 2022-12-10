@@ -48,7 +48,10 @@ pub fn keep_up(x1: &i32, y1: &i32, x2: &i32, y2: &i32) -> (i32, i32) {
 
         for i in (*x1 - 1)..=(*x1 + 1) {
             for j in (*y1 - 1)..=(*y1 + 1) {
-                if adjacent(x1, y1, &i, &j) && adjacent(x2, y2, &i, &j) && ((*x1 == i) || (*y1 == j)) {
+                if adjacent(x1, y1, &i, &j)
+                    && adjacent(x2, y2, &i, &j)
+                    && ((*x1 == i) || (*y1 == j))
+                {
                     return (i, j);
                 }
             }
