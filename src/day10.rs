@@ -1,11 +1,9 @@
 use crate::helpers::read_lines;
-use itertools::Itertools;
 use std::collections::HashSet;
 use std::iter::FromIterator;
 
 pub fn day10() {
     if let Ok(lines) = read_lines("./inputs/input-d10.txt") {
-        let mut cycles: i32 = 0;
         let mut regs: Vec<i32> = vec![];
         regs.push(1);
 
@@ -15,7 +13,6 @@ pub fn day10() {
 
                 match instr[0] {
                     "noop" => {
-                        cycles += 1;
                         regs.push(regs[regs.len() - 1]);
                     }
                     "addx" => {
@@ -48,7 +45,7 @@ pub fn day10() {
             .iter()
             .enumerate()
             .map(|(c, p)| {
-                let shift: i32 = (c as i32+ 1);
+                let shift: i32 = c as i32 + 1;
                 println!("{:?}:{:?}", shift, p);
                 if (p..=&(p + 2)).contains(&&(shift % 40)) {
                     return (shift, "#");

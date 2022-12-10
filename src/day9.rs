@@ -76,17 +76,16 @@ pub fn day9() {
         let mut knots = vec![];
         let nb_knots = 10;
 
-        for i in 0..nb_knots {
+        for _ in 0..nb_knots {
             knots.push((0, 0))
         }
         results.insert((0, 0));
 
         for line in lines.map(|c| c.unwrap()) {
             let instructions = line.split(" ").collect::<Vec<&str>>();
-            let mut total = instructions[1].parse::<usize>().unwrap();
+            let total = instructions[1].parse::<usize>().unwrap();
 
-            for i in 0..total {
-                let mut last_pos: (i32, i32) = knots[0];
+            for _ in 0..total {
                 knots[0] = move_dir(instructions[0], &knots[0].0, &knots[0].1);
 
                 for k in 1..nb_knots {
