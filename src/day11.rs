@@ -3,12 +3,12 @@ use core::cell::Cell;
 use itertools::FoldWhile::{Continue, Done};
 use itertools::Itertools;
 use std::cell::RefCell;
+use std::cmp::{max, min};
 use std::collections::HashMap;
 use std::collections::VecDeque;
 use std::fmt;
 use std::num::ParseIntError;
 use std::str::FromStr;
-use std::cmp::{max, min};
 
 struct Monkey {
     id: i64,
@@ -53,18 +53,6 @@ impl FromStr for Monkey {
                             .map(|s| s.trim())
                             .map(|s| s.parse::<i64>().unwrap())
                             .collect::<VecDeque<i64>>(),
-                    );
-                    monkey.items_prime = RefCell::new(
-                        content
-                            .chars()
-                            .skip_while(|&ch| ch != ':')
-                            .skip(1)
-                            .collect::<String>()
-                            .split(",")
-                            .map(|s| s.trim())
-                            .map(|s| s.parse::<i64>().unwrap())
-                            .map(|i| prime_decomposition(i))
-                            .collect::<VecDeque<HashMap<i64, i64>>>(),
                     );
                 }
                 2 => {
@@ -125,8 +113,8 @@ pub fn operation(operator: &String, old: &i64, modulo: i64) -> i64 {
     };
 
     let res = match lex[4] {
-        "+" => (v1 ) + (v2 ),
-        "*" => (v1 ) * (v2 ),
+        "+" => (v1) + (v2),
+        "*" => (v1) * (v2),
         _ => {
             panic!("unknown operation {:?}", lex[1]);
         }
