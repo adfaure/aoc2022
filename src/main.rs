@@ -4,6 +4,7 @@ extern crate interval_set;
 mod day10;
 mod day11;
 mod day12;
+mod day13;
 mod day3;
 mod day4;
 mod day5;
@@ -16,6 +17,7 @@ mod helpers;
 use day10::day10;
 use day11::day11;
 use day12::day12;
+use day13::day13;
 use day3::day3;
 use day4::day4;
 use day5::day5;
@@ -52,6 +54,8 @@ fn main() {
         day11();
     } else if args[1] == "12" {
         day12();
+    } else if args[1] == "13" {
+        day13();
     }
 }
 

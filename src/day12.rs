@@ -1,5 +1,4 @@
 use crate::helpers::read_lines;
-use itertools::Itertools;
 use std::cmp::Ordering;
 use std::collections::BinaryHeap;
 
@@ -164,7 +163,11 @@ pub fn day12() {
             .flatten()
             .collect();
 
-        let target = start_end.iter().find(|e| e.2 == 'E').map(|(x, y, _)| (*x, *y)).unwrap();
+        let target = start_end
+            .iter()
+            .find(|e| e.2 == 'E')
+            .map(|(x, y, _)| (*x, *y))
+            .unwrap();
 
         println!("target: {:?}", target);
         let starts = start_end

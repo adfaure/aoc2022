@@ -3,7 +3,6 @@ use core::cell::Cell;
 use itertools::FoldWhile::{Continue, Done};
 use itertools::Itertools;
 use std::cell::RefCell;
-use std::cmp::{max, min};
 use std::collections::HashMap;
 use std::collections::VecDeque;
 use std::fmt;
