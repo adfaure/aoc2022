@@ -163,7 +163,7 @@ pub fn day14() {
 
         println!("floor: {:?}", 2 + (minmax_y.1 - minmax_y.0));
         let floor = 2 + (minmax_y.1 - minmax_y.0);
-        let mapsize_x = 5 + floor * 2;
+        let mapsize_x = 2 + floor * 2;
 
         println!("map size: {:?}", mapsize_x);
         println!(
@@ -175,14 +175,14 @@ pub fn day14() {
         // let dims = minmax
         let normalize = walls
             .iter()
-            .map(|(x, y)| (x - minmax_x.0 + (mapsize_x/2) - (x_shift), y - minmax_y.0))
+            .map(|(x, y)| (x - minmax_x.0 + (mapsize_x / 2) - (x_shift), y - minmax_y.0))
             .collect_vec();
 
         let mut map = vec![vec![0; 2 + mapsize_x as usize]; floor as usize];
         map.push(vec![1; 2 + mapsize_x as usize]);
 
         let generator = (
-            (500 - minmax_x.0  + mapsize_x/2 - x_shift) as i32,
+            (500 - minmax_x.0 + mapsize_x / 2 - x_shift) as i32,
             0 - minmax_y.0 as usize,
         );
         println!("generator: {:?} {:?}", generator, x_shift);
@@ -239,7 +239,7 @@ pub fn day14() {
                     _ => String::from("o"),
                 })
                 .collect::<String>();
-             println!("{}", repr);
+            println!("{}", repr);
         }
 
         println!("reach top in {:?} steps", total + 1);
