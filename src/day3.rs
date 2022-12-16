@@ -14,6 +14,15 @@ fn scan_bag(rucsaks: &str) -> i32 {
         },
     );
 
+    let _ = 'a'..'z';
+
+    let x = 1;
+    if x & 1 == 2 {}
+
+    let x = 3.14;
+    let y = 1_f64 / x;
+    println!("{:?}", y);
+
     left.intersection(&right)
         .map(|e| {
             let score = match e {

@@ -7,6 +7,7 @@ mod day12;
 mod day13;
 mod day14;
 mod day15;
+mod day16;
 mod day3;
 mod day4;
 mod day5;
@@ -22,6 +23,7 @@ use day12::day12;
 use day13::day13;
 use day14::day14;
 use day15::day15;
+use day16::day16;
 use day3::day3;
 use day4::day4;
 use day5::day5;
@@ -64,6 +66,8 @@ fn main() {
         day14();
     } else if args[1] == "15" {
         day15();
+    } else if args[1] == "16" {
+        day16();
     }
 }
 
