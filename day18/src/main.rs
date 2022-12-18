@@ -95,7 +95,6 @@ fn main() -> std::io::Result<()> {
         .filter_map(|s| s.parse::<i32>().ok())
         .tuples::<(_, _, _)>()
         .flat_map(|coord| find_faces(coord.0, coord.1, coord.2))
-        .inspect(|f| println!("{:?}", f))
         .collect_vec();
 
     let mut faces_set = HashMap::new();
