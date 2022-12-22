@@ -158,6 +158,13 @@ fn simulation(
 
     let max = can_build
         .iter()
+        .filter(|or| {
+            blueprints.iter().find(|oc| {
+                oc.cost
+                    .iter()
+                    .any(|(ore, cost)| (*ore == or.produce && *cost > machines[&or.produce]) || or.produce == Ore::Geode )
+            }).is_some()
+        })
         .map(|orecol| Some(orecol))
         .chain(core::iter::once(None))
         .filter_map(|orecollecting| {
@@ -244,8 +251,8 @@ fn main() -> std::io::Result<()> {
         // .inspect(|bp| println!("{bp:?}"))
         .collect_vec();
 
-    let sum: i32 = bps
-        .iter()
+    let sum = bps
+        .par_iter()
         .map(|(id, bp)| {
             println!("compute for {id:?}");
 
@@ -273,16 +280,49 @@ fn main() -> std::io::Result<()> {
             );
             (id, res[&Ore::Geode] as i32)
         })
-        .map(|(id, res)| res * id)
-        .sum();
+        .map(|(id, res)| res * id);
 
-    println!("total: {:?}", sum);
+    // println!("total: {:?}", sum.sum::<i32>());
     // for (indice, bp) in blueprints {
     //     println!(
     //         "{:?}",
     //         simulation(24, bag, machines, &bp, &mut HashMap::new())
     //     );
     // }
+    //
+    let p2: i32 = bps
+        .par_iter()
+        .take(3)
+        .map(|(id, bp)| {
+            println!("compute for {id:?}");
 
+            let mut machines = bp
+                .clone()
+                .into_iter()
+                .map(|machine| (machine.produce, 0))
+                .collect::<HashMap<Ore, usize>>();
+
+            machines.insert(Ore::Ore, 1);
+
+            let bag = HashMap::from([
+                (Ore::Ore, 0),
+                (Ore::Clay, 0),
+                (Ore::Obsidian, 0),
+                (Ore::Geode, 0),
+            ]);
+
+            let res = simulation(32, bag, machines, &bp, &mut HashMap::new()).unwrap();
+
+            println!(
+                "{id} : {} -> {}",
+                res[&Ore::Geode],
+                id * res[&Ore::Geode] as i32
+            );
+            (id, res[&Ore::Geode] as i32)
+        })
+        .map(|(id, res)| res * id)
+        .product();
+
+    println!("total p2: {:?}", p2);
     Ok(())
 }
